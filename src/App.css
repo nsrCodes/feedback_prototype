@@ -1,0 +1,253 @@
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: all 0.7s;
+}
+
+ {
+  background:white;
+}
+
+input, button{
+  background: white;
+  /*box-shadow: 0px;*/
+  border: none;
+}
+
+
+nav ul{
+  list-style-type: none;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  align-items: center;
+}
+@media screen and (max-width: 480px){
+  nav ul{
+    flex-flow: column;
+  }
+}
+
+nav ul li{
+  text-align: center;
+  min-width: 150px;
+  padding: 1em;
+  border-radius: 8px;
+}
+
+nav ul li:hover{
+  background: #f2f9fd;
+  border:0.5px solid black;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+  font-size: 1.5rem;
+}
+
+
+.App{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width:100vw;
+  background: url('images/pattern.png');
+  overflow: hidden;
+}
+
+.top{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-height:3.5em;
+  padding: 0.5rem;
+  color: white;
+  background: url("images/black1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0 0 3px 0  black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+ .main{
+  padding: 3rem;
+  background:white;
+  border-radius: 3px;
+  min-width: 50vw;
+  box-shadow: 0.2px 1.5px 3px 0.5px  #8c969c ;
+}
+
+@media screen and (max-width: 480px){
+  .main{
+    padding: 2rem;
+  }
+}
+
+.option-list{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#addOption{
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.heading{
+  font-size: 1.5rem;
+  margin-bottom: 0.7em;
+}
+
+.heading h3{
+  font-size: 1.1rem;
+}
+
+
+.input{
+  background:  #f2f9fd  ;
+  width: 100%;
+  padding: 1rem;
+  /*border-bottom: 1px solid black;*/
+  border-radius: 5px ;
+}
+
+#emoji{
+
+  font-size: 1rem;
+  height: 32px;
+  width: 32px;
+}
+
+
+#plus{
+  padding: 1rem;
+  background:  #f2f9fd  ;
+}
+
+.count{
+  padding: 2px;
+  background: #dce7ed ;
+  border-radius: 2px;
+}
+.option{
+  padding: 0.2rem 0;
+  margin: 0.3rem 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.option:hover{
+  background:#EAEAEA;
+}
+
+.option form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.option form input{
+  height: 2rem;
+  padding: 3%;
+  border-radius: 2px;
+  font-size: 1rem;
+}
+
+.buttons{
+width: 30%;
+display: flex;  
+ cursor:pointer;
+ justify-content: space-around;
+}
+
+.buttons button{
+  display: hidden;
+width: 32px;
+height: 32px;
+  margin: 3px;
+}
+
+.option p {
+  width: 60%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+
+}
+
+.hidden{
+  filter: blur(10px);
+}
+
+
+.selections form{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 3px 10px;
+}
+
+.choices{
+  width: 100%;
+  margin: 5px 0;
+  text-align: left;
+  padding: 0.2em;
+  font-size: 1em;
+}
+
+
+.selected{
+  background: #f2f9fd;
+  transition: all 0.1s;
+  transform: scale(1.05);
+}
+
+#submit{
+  color: white;
+  text-shadow: 0.1rem;
+  font-size: 0.7rem;
+  margin-top: 20px;
+  align-self: center;
+  padding: 8px;
+  border-radius: 2px;
+  /*border: 1px solid black;*/
+  background: #93a7b2 ;
+}
+
+.button-choices{
+  float: right;
+  display: flex;
+  flex-direction: row;
+}
+
+.button-choices button{
+  margin: 1px 2px;
+  padding: 1px;
+  font-size: 1rem;
+}
+
+#end{
+  font-size: 3rem;
+  text-align:center;
+
+}
+
+@media screen and (max-width: 480px){
+  #end{
+    font-size: 2rem;
+  }
+}
