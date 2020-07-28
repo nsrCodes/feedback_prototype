@@ -1,44 +1,39 @@
 import React, { Component} from 'react';
 import {Option, OptionForm} from './options';
 
-import { base } from '../base'
 
 import { WaveLoading } from 'react-loadingg';
 import Top from './top';
 
 
 class Admin extends Component{
+  constructor(props){
+    super(props);
+    this.addOption = this.addOption.bind(this)
+    this.removeOption = this.removeOption.bind(this)
+    this.editOption = this.editOption.bind(this)
+    this.updateOption = this.updateOption.bind(this)
+  }
+
+  // This will be updated on its own when linked to firebase
+  state = {
+      options: {isLoading: true}
+    };
+  
+   // Makes a linkage between the state and the realtime database
+  componentWillMount(){
+    const newState =  {options: this.props.opt.Options}
+    this.setState(newState)
+    // this.setState({options: {isLoading: false}})
+  }
+
+  // Will close the linkage when the component is unmounted
+  componentWillUnmount(){
+    this.props.setOpt(this.state)
+  }
 
 
-	constructor(props){
-		super(props);
-		this.addOption = this.addOption.bind(this)
-		this.removeOption = this.removeOption.bind(this)
-		this.editOption = this.editOption.bind(this)
-		this.updateOption = this.updateOption.bind(this)
-	}
-
-	// This will be updated on its own when linked to firebase
-	state = {
-			options: {isLoading: true}
-		};
-	
-	 // Makes a linkage between the state and the realtime database
-	componentWillMount(){
-		this.optionsRef = base.syncState ('Options',{
-			context: this,
-			state: 'options'
-		})
-
-	}
-
-	// Will close the linkage when the component is unmounted
-	componentWillUnmount(){
-		base.removeBinding(this.optionsRef);
-	}
-
-
-	// Function to add choices
+  // Function to add choices
   addOption(text){
     const newOptions = [...this.state.options, {text,count: 0, isSelected:false}];
     this.setState({options: newOptions})
@@ -64,8 +59,8 @@ class Admin extends Component{
     let newOptions = [...this.state.options]
     newOptions[index].isSelected = false;
     if(value===""){
-    	this.removeOption(index)
-  		return
+      this.removeOption(index)
+      return
     }
     newOptions[index].text = value;
     this.setState({options: newOptions})
@@ -75,37 +70,37 @@ class Admin extends Component{
   return(
      <React.Fragment>
      <Top text="Admin Dashboard" />
-     	{// Temporary loadding element while link to database is made
+      {// Temporary loadding element while link to database is made
      }
-     	{this.state.options.isLoading? <WaveLoading />:
-	     
-	     <div className="main">
-	     	{console.log(this.state)}
-	     		<h3 className="heading">Reasons provided</h3>
-		      <div className="option-list">
+      {this.state.options.isLoading? <WaveLoading />:
+       
+       <div className="main">
+        {console.log(this.state)}
+          <h3 className="heading">Reasons provided</h3>
+          <div className="option-list">
 
-		      {// mapping over all the options in the db to render in DOM
-		      }
-		        {this.state.options.map((option,index)=> (
-		          <Option 
-		          key={index} 
-		          index={index} 
-		          option={option}
-		          removeOption = {this.removeOption}
-		          editOption={this.editOption}
-		          updateOption={this.updateOption}/>
-		        ))}
-		       </div>
+          {// mapping over all the options in the db to render in DOM
+          }
+            {this.state.options.map((option,index)=> (
+              <Option 
+              key={index} 
+              index={index} 
+              option={option}
+              removeOption = {this.removeOption}
+              editOption={this.editOption}
+              updateOption={this.updateOption}/>
+            ))}
+           </div>
 
-		      {// Form for addding new option
-		      }
-	        <OptionForm addOption={this.addOption} />
+          {// Form for addding new option
+          }
+          <OptionForm addOption={this.addOption} />
 
-	       </div>
-     	}
+         </div>
+      }
      </React.Fragment> 
     )
-	}
+  }
  }
 
 export default Admin;

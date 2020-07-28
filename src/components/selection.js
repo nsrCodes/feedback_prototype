@@ -1,17 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { base } from '../base';
 
 import { WaveLoading } from 'react-loadingg';
 import '../App.css'
 import Top from './top'
-function Selection ({back}){
+function Selection ({opt,setOpt}){
 
 	// different state variables for different purposes
 
 	// list of options
-	const [options, setOption] = useState([])
+	const [options, setOptions] = useState([])
 
 	// loading indicator while fetching the data
 	const [loading, setLoading] = useState(true)
@@ -42,41 +41,40 @@ function Selection ({back}){
 	  }
 
 	  // Updating state variables
-	  setOption(newOptions) 
+	  setOptions(newOptions) 
 	  setSelected(index)
   }
 
   // handling final submission of choice
   const handleSubmit = ()=>{
-  	console.log(options)
+  	// console.log(options)
+  	let newOptions = [...options]
+
 
   	// Finding index of selected variable
   	const index = options.indexOf(options.find(option => option.isSelected))
 
   	// updating database
-  	base.update(`Options/${index}`, {
-		  data: { count: options[index].count+1 },
-		  then(err) {
-		    if (!err) {
-		      console.log('successfully updated')
-		    }
-		  }
-		});
+  	newOptions[index].count++;
+  	newOptions[index].isSelected=false
+  	setOptions(newOptions)
 
-  	// Setting redirect state variable to true after successful update
+  	setOpt({Options: options})
   	setRedirect(true)
   }
 
-  // fetching existing choices from the database
-  useEffect(()=>{
-		base.fetch('Options', {
-      context: this,
-      then: (newOptions) => {
-        setOption(newOptions)
-        setLoading(false)
-      		}})
-	},[])
 
+
+  const start = () => {
+  if (loading)
+  	{
+  		setOptions(opt.Options)
+  	    setLoading(false)
+  	}
+  }
+
+
+	useEffect(()=> start())
 
   return(
   	<div className="feedback">
@@ -92,7 +90,10 @@ function Selection ({back}){
   		// temporary loading element till data is fetched
   	}
   	{ loading?
-  		(<WaveLoading />):
+  		(
+  			
+  			<WaveLoading />
+  		):
 
   		// mapping over list of fetched options  
 	  	(<div>
