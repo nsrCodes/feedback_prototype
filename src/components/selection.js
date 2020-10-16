@@ -72,6 +72,7 @@ function Selection ({back}){
 		base.fetch('Options', {
       context: this,
       then: (newOptions) => {
+      	console.log(newOptions)
         setOption(newOptions)
         setLoading(false)
       		}})
